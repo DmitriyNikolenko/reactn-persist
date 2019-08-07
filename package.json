@@ -1,0 +1,31 @@
+{
+	"name": "reactn-persist",
+	"version": "1.0.0",
+	"description": "Add persist functionality to reactn global storage.",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/DmitriyNikolenko/reactn-persist.git"
+	},
+	"keywords": [
+		"react",
+		"react-native",
+		"reactn",
+		"persist",
+		"localstorage",
+		"sessionstorage",
+		"asyncstorage"
+	],
+	"author": "DmitriyNikolenko",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/DmitriyNikolenko/reactn-persist/issues"
+	},
+	"peerDependencies": {
+		"reactn": ">= 2.0.0"
+	},
+	"homepage": "https://github.com/DmitriyNikolenko/reactn-persist#readme"
+}
