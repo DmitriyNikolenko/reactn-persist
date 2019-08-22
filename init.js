@@ -23,7 +23,7 @@ const rehidrate = async ({ storage, key, initialValue, debug }) => {
 		setGlobal({ ...initialValue, ...persistedGlobal, [REHIDRATED_KEY]: true });
 		debug && log('rehidrate', { initial: { ...global }, persisted: { ...persistedGlobal } });
 	} catch (error) {
-		setGlobal({ ...initialValue, [REHIDRATED_KEY]: false });
+		setGlobal({ ...initialValue, [REHIDRATED_KEY]: true });
 		debug && log('rehidrate', { error: error.message });
 	}
 };
