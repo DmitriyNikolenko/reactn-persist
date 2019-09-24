@@ -55,5 +55,6 @@ const [rehidrated] = useGlobal(REHIDRATED_KEY);
 
 # Changelog
 
+-   1.2.0 - added Typescript declaration file.
 -   1.1.0 - added rehydrated status and export rehydrated key name (REHIDRATED_KEY).
 -   1.0.0 - release.
