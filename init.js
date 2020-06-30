@@ -55,11 +55,16 @@ const init = async ({
 	debounceDelay = defaults.debounceDelay,
 	debug = defaults.debug,
 	initialValue = defaults.initialValue,
+	provider
 }) => {
 	try {
 		await rehidrate({ storage, key, initialValue });
 		const debouncedPersist = debounce(persist({ storage, key, whitelist }), debounceDelay);
-		addCallback(debouncedPersist);
+		if (provider) {
+			provider.addCallback(debouncedPersist);
+		} else {
+			addCallback(debouncedPersist);
+		}
 		debug && log('init', { success: true });
 	} catch (error) {
 		debug && log('init', { error: error.message });
