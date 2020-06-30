@@ -1,4 +1,4 @@
-import { setGlobal, getGlobal, addCallback } from 'reactn';
+import { setGlobalInternal, getGlobalInternal, addCallback } from 'reactn';
 import { debounce } from './helpers';
 
 const defaults = {
@@ -15,7 +15,9 @@ const log = (method, payload) => {
 	console.log('reactn-persist: ', method, payload);
 };
 
-const rehidrate = async ({ storage, key, initialValue, debug }) => {
+const rehidrate = async ({ storage, key, initialValue, debug, provider }) => {
+	const getGlobal = !!provider ? provider.getGlobal : getGlobalInternal;
+	const setGlobal = !!provider ? provider.setGlobal : setGlobalInternal;
 	try {
 		const persistedGlobalValue = await storage.getItem(key);
 		const persistedGlobal = JSON.parse(persistedGlobalValue);
@@ -58,7 +60,7 @@ const init = async ({
 	initialValue = defaults.initialValue,
 }) => {
 	try {
-		await rehidrate({ storage, key, initialValue });
+		await rehidrate({ storage, key, initialValue, provider });
 		const debouncedPersist = debounce(persist({ storage, key, whitelist }), debounceDelay);
 		if (provider) {
 			provider.addCallback(debouncedPersist);
