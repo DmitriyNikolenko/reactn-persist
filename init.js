@@ -50,12 +50,12 @@ const persist = ({ storage, key, whitelist, debug }) => global => {
 
 const init = async ({
 	storage,
+	provider,
 	key = defaults.KEY,
 	whitelist = defaults.whitelist,
 	debounceDelay = defaults.debounceDelay,
 	debug = defaults.debug,
 	initialValue = defaults.initialValue,
-	provider
 }) => {
 	try {
 		await rehidrate({ storage, key, initialValue });
