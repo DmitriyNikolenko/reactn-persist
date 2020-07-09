@@ -1,6 +1,6 @@
 {
 	"name": "reactn-persist",
-	"version": "1.2.2",
+	"version": "1.2.3",
 	"description": "Add persist functionality to reactn global storage.",
 	"main": "index.js",
 	"scripts": {
