@@ -18,10 +18,10 @@ const rehidrate = async ({ storage, key, initialValue, debug }) => {
 		const persistedGlobalValue = await storage.getItem(key);
 		const persistedGlobal = JSON.parse(persistedGlobalValue);
 		const global = getGlobal();
-		setGlobal({ ...initialValue, ...persistedGlobal, [key]: true });
+		setGlobal({ ...initialValue, ...persistedGlobal }, (global) => setGlobal({ [key]: true }));
 		debug && log('rehidrate', { initial: { ...global }, persisted: { ...persistedGlobal } });
 	} catch (error) {
-		setGlobal({ ...initialValue, [key]: true });
+		setGlobal({ ...initialValue }, (global) => setGlobal({ [key]: true }));
 		debug && log('rehidrate', { error: error.message });
 	}
 };
