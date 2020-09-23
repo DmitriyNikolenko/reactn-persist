@@ -11,6 +11,7 @@ declare module 'reactn-persist' {
 		debounceDelay: number;
 		debug: boolean;
 		initialValue: object | any[];
+		provider: any;
 	}
 
 	const init: (options: TInitOptions) => void;
