@@ -38,6 +38,7 @@ initReactnPersist({
 	key: '@reactn', // Key in storage. Default '@reactn'.
 	debounceDelay: 1000, // Persist debounce delay. Default 1000ms.
 	initialValue: {}, // Object that will be merged with rehydrated global. Default {}.
+	provider: ReactNProvider, // ReactN Provider instance (if you want to use Provider).
 });
 ```
 
@@ -55,6 +56,7 @@ const [rehidrated] = useGlobal(REHIDRATED_KEY);
 
 # Changelog
 
+-   1.3.0 - add support for ReactN Providers (thanks [vjsingh](https://github.com/vjsingh)), update Typescript declarations.
 -   1.2.2 - fix Typescript declaration file.
 -   1.2.0 - added Typescript declaration file.
 -   1.1.0 - added rehydrated status and export rehydrated key name (REHIDRATED_KEY).
