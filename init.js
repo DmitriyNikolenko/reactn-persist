@@ -30,11 +30,11 @@ const rehidrate = async ({ storage, key, initialValue, whitelist, debug, provide
 				}
 				return item;
 			}, Object.create(null));
-			storage.setItem(key, JSON.stringify(persistedGlobalFiltered));
 		}
 
-		// Set persisted data to global.
+		// Set persisted data.
 		setGlobal({ ...initialValue, ...persistedGlobalFiltered }, (global) => setGlobal({ [key]: true }));
+		storage.setItem(key, JSON.stringify(persistedGlobalFiltered));
 
 		debug && log('rehidrate', { initial: { ...getGlobal() }, persisted: { ...persistedGlobal } });
 	} catch (error) {
