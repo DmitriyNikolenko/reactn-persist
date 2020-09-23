@@ -13,15 +13,30 @@ const log = (method, payload) => {
 	console.log('reactn-persist: ', method, payload);
 };
 
-const rehidrate = async ({ storage, key, initialValue, debug, provider }) => {
+const rehidrate = async ({ storage, key, initialValue, whitelist, debug, provider }) => {
 	const getGlobal = !!provider ? provider.getGlobal : getGlobalInternal;
 	const setGlobal = !!provider ? provider.setGlobal : setGlobalInternal;
 	try {
+		// Obtain persisted data.
 		const persistedGlobalValue = await storage.getItem(key);
 		const persistedGlobal = JSON.parse(persistedGlobalValue);
-		const global = getGlobal();
-		setGlobal({ ...initialValue, ...persistedGlobal }, (global) => setGlobal({ [key]: true }));
-		debug && log('rehidrate', { initial: { ...global }, persisted: { ...persistedGlobal } });
+
+		// Sanitize persisted data relying on whitelist.
+		let persistedGlobalFiltered = persistedGlobal;
+		if (whitelist.length > 0) {
+			persistedGlobalFiltered = Object.keys(persistedGlobal).reduce((item, key) => {
+				if (whitelist.includes(key)) {
+					item[key] = persistedGlobal[key];
+				}
+				return item;
+			}, Object.create(null));
+			storage.setItem(key, JSON.stringify(persistedGlobalFiltered));
+		}
+
+		// Set persisted data to global.
+		setGlobal({ ...initialValue, ...persistedGlobalFiltered }, (global) => setGlobal({ [key]: true }));
+
+		debug && log('rehidrate', { initial: { ...getGlobal() }, persisted: { ...persistedGlobal } });
 	} catch (error) {
 		setGlobal({ ...initialValue }, (global) => setGlobal({ [key]: true }));
 		debug && log('rehidrate', { error: error.message });
@@ -58,8 +73,8 @@ const init = async ({
 	initialValue = defaults.initialValue,
 }) => {
 	try {
-		await rehidrate({ storage, key, initialValue, provider });
-		const debouncedPersist = debounce(persist({ storage, key, whitelist }), debounceDelay);
+		await rehidrate({ storage, key, initialValue, whitelist, provider, debug });
+		const debouncedPersist = debounce(persist({ storage, key, whitelist, debug }), debounceDelay);
 		if (provider) {
 			provider.addCallback(debouncedPersist);
 		} else {
