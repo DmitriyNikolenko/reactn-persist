@@ -1,4 +1,4 @@
-import { setGlobalInternal, getGlobalInternal, addCallback } from 'reactn';
+import { setGlobal as setGlobalInternal, getGlobal as getGlobalInternal, addCallback } from 'reactn';
 import { debounce } from './helpers';
 
 const defaults = {
