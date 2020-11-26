@@ -56,7 +56,7 @@ const [rehidrated] = useGlobal(REHIDRATED_KEY);
 
 # Changelog
 
--   1.3.2 - fix a undefined import instead of setGlobal and getGlobal when you are using ReactN without Provider (thanks [@Vladislava9009](https://github.com/Vladislava9009)).
+-   1.3.2 - fix a undefined import instead of setGlobal and getGlobal when you are using ReactN without Provider (thanks [@DomThePorcupine](https://github.com/roothealthdom), [@Vladislava9009](https://github.com/Vladislava9009)).
 -   1.3.1 - filter persisted data keys which are absent in whitelist (if it exist) during rehydration (thanks [@truongngodang](https://github.com/truongngodang)).
 -   1.3.0 - add support for ReactN Providers (thanks [@vjsingh](https://github.com/vjsingh)), update Typescript declarations.
 -   1.2.2 - fix Typescript declaration file.
